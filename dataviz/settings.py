@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'webapp',
+    'tailwind',
+    'theme',
 ]
 
 MIDDLEWARE = [
@@ -125,6 +127,13 @@ STATICFILES_DIRS = [
 # conf media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR /'media'
+
+# Tailwind configuration
+TAILWIND_APP_NAME = 'theme'
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+NPM_BIN_PATH = 'npm.cmd'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
