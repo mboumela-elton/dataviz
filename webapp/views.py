@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 # Create your views here.
 def index(request, *args, **kwargs):
-    hello = 'Welcome to our first page'
+    hello = 'Bonjour les amis'
     context = {
         'hello': hello,
     }
