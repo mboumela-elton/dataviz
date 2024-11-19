@@ -35,19 +35,24 @@
       }).addTo(map);
 
       // Ajouter un marqueur
-      var marker = L.marker([51.5, -0.09]).addTo(map);
-      marker.bindPopup("Bonjour, je suis un marqueur !").openPopup();
-      var circle = L.circle([51.508, -0.11], {
+      var marker = L.marker([48.8584, 2.2945]).addTo(map);
+      marker.bindPopup("Tour Eiffel").openPopup();
+
+//      var marker2 = L.marker([48.8606, 2.3376]).addTo(map);
+     //  marker2.bindPopup("Louvre").openPopup();
+
+      var circle = L.circle([48.8584, 2.2945], {
         color: "red",
         fillColor: "#f03",
         fillOpacity: 0.5,
-        radius: 5000,
+        radius: 2500,
       }).addTo(map);
-      var circle2 = L.circle([51.51, -0.047], {
+
+      var circle2 = L.circle([48.8606, 2.3376], {
         color: "yellow",
         fillColor: "yellow",
         fillOpacity: 0.5,
-        radius: 5000,
+        radius: 2500,
       }).addTo(map);
     </script>
   </body>
