@@ -15,12 +15,20 @@
     {% tailwind_css %}
   </head>
   <body>
-    <h1>Dataviz project</h1>
-    <p class="text-3xl underline">{{ hello }}</p>
-    <div id="map"></div>
+    <main class="flex flex-row">
+      <section class="flex-1">
+        <div id="map"></div>
+      </section>
+      <section class="flex-1 mx-10">
+        <form action="" method="post">
+          <input type="text">
+          <button type="submit">recherche</button>
+        </form>
+      </section>
+    </main>
 
     <!-- Ajouter le fichier JavaScript -->
-    <script src="{% static 'js/script.js' %}"></script>
+    <!-- <script src="{% static 'js/script.js' %}"></script> -->
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
