@@ -13,71 +13,36 @@
     />
     <title>index</title>
     {% tailwind_css %}
-    <style>
-      body {
-        display: flex;
-        flex-direction: row; /* Alignement horizontal */
-        align-items: flex-start;
-        justify-content: space-between;
-        margin: 0;
-        padding: 20px;
-        height: 100vh;
-      }
-      #map {
-        width: 50%; /* Largeur de la carte */
-        height: 100%; /* Hauteur de la carte */
-      }
-      .text-container {
-        width: 45%; /* Largeur de la zone de texte */
-        padding-left: 20px; /* Espacement entre la carte et le texte */
-      }
-      @media (max-width: 768px) {
-        body {
-          flex-direction: column; /* Colonne sur mobile */
-        }
-        #map, .text-container {
-          width: 100%; /* Pleine largeur sur mobile */
-          height: 300px; /* Hauteur fixe pour la carte sur mobile */
-        }
-      }
-    </style>
+    
+
   </head>
+  
   <body>
-    <div id="map"></div>
-    <div class="text-container">
-      <h1>Dataviz project</h1>
-      <p class="text-3xl underline">{{ hello }}</p>
+    <div id="app"> <!-- Main container -->
+
+      <div id="map"></div>
+
+      <div id="rightContent">
+      
+        <!-- Search bar -->
+        <input type="text" id="searchBox" placeholder="Search for a city, place, or shop" />
+
+        <!-- Button to trigger the search -->
+        <button id="searchButton">Search</button>
+      
+        <!-- Radius slider -->
+        <label for="radiusSlider">Choose radius (in meters): <span id="radiusValue">100</span> m</label>
+        <input type="range" id="radiusSlider" min="0" max="6" value="1" step="1" />
+
+
+      </div>
     </div>
 
+
+
     <!-- Ajouter le fichier JavaScript -->
-    <script src="{% static 'js/script.js' %}"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script>
-      // Initialiser la carte
-      var map = L.map("map").setView([51.505, -0.09], 13); // Coordonnées de Londres
+    <script src="{% static 'js/script.js' %}"></script>
 
-      // Ajouter une couche de tuiles (OpenStreetMap)
-      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        maxZoom: 19,
-        attribution:
-          '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-      }).addTo(map);
-
-      // Ajouter un marqueur
-      var marker = L.marker([51.5, -0.09]).addTo(map);
-      marker.bindPopup("Bonjour, je suis un marqueur !").openPopup();
-      var circle = L.circle([51.508, -0.11], {
-        color: "red",
-        fillColor: "#f03",
-        fillOpacity: 0.5,
-        radius: 5000,
-      }).addTo(map);
-      var circle2 = L.circle([51.51, -0.047], {
-        color: "yellow",
-        fillColor: "yellow",
-        fillOpacity: 0.5,
-        radius: 5000,
-      }).addTo(map);
-    </script>
   </body>
 </html>
