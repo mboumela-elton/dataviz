@@ -1,11 +1,9 @@
 from django.http import HttpResponse
-import requests
-from .forms import UserInfoForm
 from django.shortcuts import render
 
-from .utils import search_location
+from .utils import search_location, find_nearby_schools_and_stations
 
-# Create your views here.
+radiusOptions = [0.5, 1, 5, 10, 25, 35, 50]
 
 def map_view(request):
     # Contexte par défaut avec des données de Paris
@@ -16,18 +14,27 @@ def map_view(request):
     }
     
     if request.method == 'POST':
-        query = request.POST.get('city')  # Obtenez la requête de l'utilisateur
-        print(query)
-        if query:
-            location_data = search_location(query)  # Appelez la fonction pour rechercher la localisation
+        city = request.POST.get('city')  # Obtenez la requête de l'utilisateur
+        print(city)
+        if request.POST.get('city'):
+            location_data = search_location(city)  # Appelez la fonction pour rechercher la localisation
+            print(location_data)
             if location_data and 'latitude' in location_data and 'longitude' in location_data:
                 # Mettre à jour le contexte avec les nouvelles coordonnées
-                context['latitude'] = location_data['latitude']
-                context['longitude'] = location_data['longitude']
-                context['display_name'] = location_data['display_name']
+                context = location_data
             else:
                 context['message'] = 'Location not found.'  # Ajoutez un message d'erreur au contexte
-
+        if request.POST.get('school'):
+            r1 = radiusOptions[int(request.POST.get('school'))]
+            r2 = radiusOptions[int(request.POST.get('station'))]
+            d = (r1+r2)/2
+            print(r1)
+            print(r2)
+            print(d)
+            city_name = city.split(',', 1)[0]
+            find = find_nearby_schools_and_stations(city_name, 3, 5, 5)
+            context = {'zones' : find}
+                
     return render(request, 'index.html', context)
 
 # def user_info_view(request):

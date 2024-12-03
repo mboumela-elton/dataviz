@@ -37,7 +37,9 @@ h1 {
 .radiusSlider {
   width: 100%;
 }
-
+.radiusSlider2 {
+  width: 100%;
+}
 .autocomplete-list {
   border: 1px solid #ddd;
   max-height: 150px;

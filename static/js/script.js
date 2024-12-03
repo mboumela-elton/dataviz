@@ -17,15 +17,19 @@ L.marker([latitude, longitude])
 const radiusOptions = [0.5, 1, 5, 10, 25, 35, 50];
 
 // Update radius value display when slider changes
-const radiusSlider = document.getElementById("radiusSlider");
-const radiusSlider2 = document.getElementById("radiusSlider2");
-const radiusValueDisplay = document.getElementById("radiusValue");
-const radiusValueDisplay2 = document.getElementById("radiusValue2");
+var radiusSlider = document.getElementById("radiusSlider");
+var radiusSlider2 = document.getElementById("radiusSlider2");
+var radiusValueDisplay = document.getElementById("radiusValue");
+var radiusValueDisplay2 = document.getElementById("radiusValue2");
 radiusValueDisplay.textContent = radiusOptions[radiusSlider.value];
 radiusValueDisplay2.textContent = radiusOptions[radiusSlider2.value];
 
 radiusSlider.addEventListener("input", function () {
   radiusValueDisplay.textContent = radiusOptions[this.value];
+});
+
+radiusSlider2.addEventListener("input", function () {
+  radiusValueDisplay2.textContent = radiusOptions[this.value];
 });
 
 const searchBox = document.getElementById('searchBox');
