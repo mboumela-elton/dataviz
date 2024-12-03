@@ -13,36 +13,51 @@
     />
     <title>index</title>
     {% tailwind_css %}
-    
-
   </head>
-  
+
   <body>
-    <div id="app"> <!-- Main container -->
+    <div id="app">
+      <!-- Main container -->
 
       <div id="map"></div>
 
       <div id="rightContent">
-      
-        <!-- Search bar -->
-        <input type="text" id="searchBox" placeholder="Search for a city, place, or shop" />
+        <form method="POST" action="{% url 'map_view' %}">
+          {% csrf_token %}
+          <!-- Search bar -->
+          <input
+            type="text"
+            name="city"
+            id="searchBox"
+            placeholder="Search for a city, place, or shop"
+          />
 
-        <!-- Button to trigger the search -->
-        <button id="searchButton">Search</button>
-      
+          <!-- Button to trigger the search -->
+          <button id="searchButton" type="submit">Search</button>
+        </form>
+
         <!-- Radius slider -->
-        <label for="radiusSlider">Choose radius (in meters): <span id="radiusValue">100</span> m</label>
-        <input type="range" id="radiusSlider" min="0" max="6" value="1" step="1" />
-
-
+        <label for="radiusSlider"
+          >Choose radius (in meters): <span id="radiusValue">100</span> m</label
+        >
+        <input
+          type="range"
+          id="radiusSlider"
+          min="0"
+          max="6"
+          value="1"
+          step="1"
+        />
       </div>
     </div>
 
-
-
     <!-- Ajouter le fichier JavaScript -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+      var latitude = {{ latitude }};
+      var longitude = {{ longitude }};
+      var display_name = "{{ display_name }}";
+    </script>
     <script src="{% static 'js/script.js' %}"></script>
-
   </body>
 </html>

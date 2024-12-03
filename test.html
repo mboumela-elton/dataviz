@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Écoles et Gares à Paris</title>
+</head>
+<body>
+    <h3>Écoles et Gares à Paris à Moins de 15 minutes à Pied</h3>
+    <pre id="output"></pre>
+
+    <script>
+        async function fetchLocations() {
+            const query = `
+                [out:json];
+                area["name"="Paris"]["admin_level"="8"];
+                (
+                  node["amenity"="school"](area);
+                  node["railway"="station"](area);
+                );
+                out body;
+            `;
+
+            const url = `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`;
+            const response = await fetch(url);
+            const data = await response.json();
+            return data.elements;
+        }
+
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371; // Rayon de la Terre en km
+            const dLat = (lat2 - lat1) * (Math.PI / 180);
+            const dLon = (lon2 - lon1) * (Math.PI / 180);
+            const a = 
+                Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) *
+                Math.sin(dLon/2) * Math.sin(dLon/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+            const distance = R * c; // Distance en km
+            return distance;
+        }
+
+        async function findNearbySchoolsAndStations() {
+            const locations = await fetchLocations();
+            const schools = [];
+            const stations = [];
+
+            locations.forEach(location => {
+                const { lat, lon, tags } = location;
+                if (tags.amenity === 'school') {
+                    schools.push({ name: tags.name || 'Inconnu', lat, lon });
+                } else if (tags.railway === 'station') {
+                    stations.push({ name: tags.name || 'Inconnu', lat, lon });
+                }
+            });
+
+            const output = [];
+            schools.forEach(school => {
+                stations.forEach(station => {
+                    const distance = calculateDistance(school.lat, school.lon, station.lat, station.lon);
+                    if (distance <= 12000) { // Moins de 1.2 km pour 15 minutes à pied
+                        output.push(`École: ${school.name}, Gare: ${station.name}, Distance: ${distance.toFixed(2)} km`);
+                    }
+                });
+            });
+
+            document.getElementById('output').innerText = output.length > 0 ? output.join('\n') : 'Aucune paire trouvée.';
+        }
+
+        // Appel de la fonction
+        findNearbySchoolsAndStations();
+    </script>
+</body>
+</html>
