@@ -15,9 +15,9 @@ def map_view(request):
     
     if request.method == 'POST':
         city = request.POST.get('city')  # Obtenez la requête de l'utilisateur
-        print(city)
+        location_data = search_location(city) 
+        
         if request.POST.get('city'):
-            location_data = search_location(city)  # Appelez la fonction pour rechercher la localisation
             print(location_data)
             if location_data and 'latitude' in location_data and 'longitude' in location_data:
                 # Mettre à jour le contexte avec les nouvelles coordonnées
@@ -28,12 +28,9 @@ def map_view(request):
             r1 = radiusOptions[int(request.POST.get('school'))]
             r2 = radiusOptions[int(request.POST.get('station'))]
             d = (r1+r2)/2
-            print(r1)
-            print(r2)
-            print(d)
             city_name = city.split(',', 1)[0]
             find = find_nearby_schools_and_stations(city_name, 3, 5, 5)
-            context = {'zones' : find}
+            context = location_data | { 'zones' : find}
                 
     return render(request, 'index.html', context)
 
