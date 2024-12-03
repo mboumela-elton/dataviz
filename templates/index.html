@@ -29,26 +29,46 @@
             type="text"
             name="city"
             id="searchBox"
+            value={{display_name}}
             placeholder="Search for a city, place, or shop"
           />
-
           <!-- Button to trigger the search -->
           <button id="searchButton" type="submit">Search</button>
+          <div id="autocompleteContainer" class="autocomplete-list"></div>
         </form>
 
-        <!-- Radius slider -->
-        <label for="radiusSlider"
-          >Choose radius (in meters): <span id="radiusValue">100</span> m</label
-        >
-        <input
-          type="range"
-          id="radiusSlider"
-          min="0"
-          max="6"
-          value="1"
-          step="1"
-        />
+              <!-- Radius slider -->
+              <form>
+                <label for="radiusSlider"
+                >Station proximity: <span id="radiusValue"></span>km</label
+              >
+              <input
+                type="range"
+                id="radiusSlider"
+                class="radiusSlider"
+                min="0"
+                max="6"
+                value="1"
+                step="1"
+              />
+
+            <label for="radiusSlider2"
+            >School proximity: <span id="radiusValue2"></span>km</label
+          >
+          <input
+            type="range"
+            id="radiusSlider2"
+            class="radiusSlider"
+            min="0"
+            max="6"
+            value="1"
+            step="1"
+          />
+          <button id="" type="submit">Analyse</button>
+        </form>
       </div>
+           
+   </div>
     </div>
 
     <!-- Ajouter le fichier JavaScript -->

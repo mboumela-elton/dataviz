@@ -14,70 +14,51 @@ L.marker([latitude, longitude])
   .bindPopup(`<b>${display_name}</b>`)
   .addTo(map);
 // Radius options
-const radiusOptions = [50, 100, 250, 500, 1000, 2500, 5000];
+const radiusOptions = [0.5, 1, 5, 10, 25, 35, 50];
 
 // Update radius value display when slider changes
 const radiusSlider = document.getElementById("radiusSlider");
+const radiusSlider2 = document.getElementById("radiusSlider2");
 const radiusValueDisplay = document.getElementById("radiusValue");
+const radiusValueDisplay2 = document.getElementById("radiusValue2");
 radiusValueDisplay.textContent = radiusOptions[radiusSlider.value];
+radiusValueDisplay2.textContent = radiusOptions[radiusSlider2.value];
 
 radiusSlider.addEventListener("input", function () {
   radiusValueDisplay.textContent = radiusOptions[this.value];
 });
 
-// Function to search for a location using Nominatim
-// async function searchLocation(query) {
-//   const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
-//     query
-//   )}`;
-//   try {
-//     const response = await fetch(url);
-//     const data = await response.json();
-//     if (data && data.length > 0) {
-//       const { lat, lon } = data[0];
-//       map.setView([lat, lon], 13); // Center map on found location
+const searchBox = document.getElementById('searchBox');
+    const autocompleteContainer = document.getElementById('autocompleteContainer');
 
-//       // Remove previous circle if it exists
-//       if (currentCircle) {
-//         map.removeLayer(currentCircle);
-//       }
+    searchBox.addEventListener('input', function() {
+        const query = this.value;
 
-//       L.marker([lat, lon])
-//         .addTo(map) // Place marker at location
-//         .bindPopup(`<b>${query}</b>`);
-//       currentCircle = L.circle([lat, lon], { radius }).addTo(map);
-//       currentCircle
-//         .bindPopup(`<b>${query}</b><br>Radius: ${radius} meters`)
-//         .openPopup();
-//     } else {
-//       alert("Location not found.");
-//     }
-//   } catch (error) {
-//     console.error("Error fetching location data:", error);
-//   }
-// }
+        if (query.length > 2) { // Démarre l'autocomplétion après 3 caractères
+            fetch(`https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=${encodeURIComponent(query)}`)
+                .then(response => response.json())
+                .then(data => {
+                    autocompleteContainer.innerHTML = ''; // Vide le conteneur d'autocomplétion
+                    data.forEach(item => {
+                        const div = document.createElement('div');
+                        div.classList.add('autocomplete-item');
+                        div.innerText = item.display_name;
+                        div.addEventListener('click', () => {
+                            searchBox.value = item.display_name; // Mettre à jour le champ de recherche
+                            autocompleteContainer.innerHTML = ''; // Vider les suggestions
+                        });
+                        autocompleteContainer.appendChild(div);
+                    });
+                })
+                .catch(error => console.error('Error fetching autocomplete data:', error));
+        } else {
+            autocompleteContainer.innerHTML = ''; // Vider les suggestions si la requête est trop courte
+        }
+    });
 
-// Ajouter un marqueur
-//       var circle = L.circle([51.508, -0.11], {
-//         color: "red",
-//         fillColor: "#f03",
-//         fillOpacity: 0.5,
-//         radius: 5000,
-//       }).addTo(map);
-//       var circle2 = L.circle([51.51, -0.047], {
-//         color: "yellow",
-//         fillColor: "yellow",
-//         fillOpacity: 0.5,
-//         radius: 5000,
-//       }).addTo(map);
-
-// Search functionality (example)
-// document.getElementById("searchButton").addEventListener("click", function () {
-//   const query = document.getElementById("searchBox").value;
-//   const selectedRadius = radiusOptions[radiusSlider.value]; // Get radius from slider
-//   if (query) {
-//     searchLocation(query, selectedRadius);
-//   } else {
-//     alert("Please enter a location to search.");
-//   }
-// });
+    // Fermer la liste d'autocomplétion si on clique à l'extérieur
+    document.addEventListener('click', function(event) {
+        if (!searchBox.contains(event.target) && !autocompleteContainer.contains(event.target)) {
+            autocompleteContainer.innerHTML = '';
+        }
+    });
