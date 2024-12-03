@@ -13,8 +13,6 @@
     />
     <title>index</title>
     {% tailwind_css %}
-    
-
   </head>
   
   <body>
@@ -33,16 +31,20 @@
         <!-- Radius slider -->
         <label for="radiusSlider">Choose radius (in meters): <span id="radiusValue">100</span> m</label>
         <input type="range" id="radiusSlider" min="0" max="6" value="1" step="1" />
-
-
+     
+        <div id="controls" class="communication-bar">
+           <img src="{% static 'images/bike.png' %}" id="bikeIcon" class="icon" alt="Vélo" /> 
+           <img src="{% static 'images/car.png' %}" id="carIcon" class="icon" alt="Voiture" /> 
+           <img src="{% static 'images/bus.png' %}" id="busIcon" class="icon" alt="Bus" /> 
+           <img src="{% static 'images/feeth.png' %}" id="feethIcon" class="icon" alt="pied" /> 
+           <input type="text" id="criteriaInput" placeholder="Entrez vos critères" />
+           <button id="saveCriteriaBtn">Enregistrer les critères</button>
+        </div>
       </div>
     </div>
-
-
 
     <!-- Ajouter le fichier JavaScript -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="{% static 'js/script.js' %}"></script>
-
   </body>
 </html>

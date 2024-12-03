@@ -1,72 +1,77 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    margin: 0;
-    padding: 0;
-}
-
-.container {
-    width: 80%;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
 h1 {
-    text-align: center;
-    color: #333;
+  color: red;
+  font-size: 50px;
 }
 
-.search-bar {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
+#map {
+  height: 500px;
 }
 
-.search-bar input[type="text"] {
-    width: 70%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+/* Main container flex layout */
+#app {
+  display: flex;
+  height: 100vh;
 }
 
-.search-bar button {
-    padding: 10px;
-    margin-left: 10px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+/* Left side map */
+#map {
+  flex: 7;
+  height: 100%;
 }
 
-.criteria-section {
-    margin-top: 20px;
+/* Right side content */
+#rightContent {
+  flex: 3;
+  padding: 20px;
+  overflow-y: auto;
 }
 
-#add-criteria-button {
-    display: block;
-    margin: 0 auto 10px;
-    padding: 10px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+/* Style for the search bar */
+#searchBox {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  box-sizing: border-box;
 }
 
-#criteria-list {
-    margin-top: 10px;
+#radiusSlider {
+  width: 100%;
 }
 
-.criterion {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+#controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+/* Style for the icons */
+#controls img {
+  width: 50px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+/* Ensure the icons are displayed in a horizontal bar */
+.communication-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #8B4513; /* Couleur terre */
+  padding: 10px;
+}
+
+#criteriaInput {
+  width: 200px;
+  padding: 10px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+#saveCriteriaBtn {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
 }
