@@ -69,7 +69,7 @@ def circle_intersection(lat1, lon1, r1, lat2, lon2, r2):
 
     return [intersection1, intersection2]
 
-def find_nearby_schools_and_stations(city_name, max_distance_km=1):
+def find_nearby_schools_and_stations(city_name, max_distance_km=0.5):
     schools = fetch_schools(city_name)
     stations = fetch_train_stations(city_name)
     
@@ -106,7 +106,7 @@ def find_nearby_schools_and_stations(city_name, max_distance_km=1):
     return nearby_pairs
 
 # Exemple d'utilisation
-city_name = "Cergy, Pontoise, Val-d'Oise, Île-de-France, France métropolitaine, France"  # Remplacez par le nom de la ville souhaitée
+city_name = "Cergy"  # Remplacez par le nom de la ville souhaitée
 nearby_schools_and_stations = find_nearby_schools_and_stations(city_name)
 
 if nearby_schools_and_stations:
@@ -116,5 +116,6 @@ if nearby_schools_and_stations:
               f"Distance: {pair['distance_km']:.2f} km"
               f"{pair['intersection1_lat']}"
               )
+        print()
 else:
     print("Aucune paire d'école et de gare trouvée dans la distance spécifiée.")
