@@ -1,0 +1,62 @@
+<div id="rightContent">
+  <form method="POST" action="{% url 'map_view' %}">
+    {% csrf_token %}
+
+    <!-- Search bar for city, place, or shop -->
+    <input
+      type="text"
+      name="city"
+      id="searchBox"
+      value="{{ display_name }}"
+      placeholder="Search for a city, place, or shop"
+    />
+    <button id="searchButton" type="submit">Search</button>
+    <div id="autocompleteContainer" class="autocomplete-list"></div>
+
+    <!-- Options container -->
+    <label for="optionsSelect">Choisissez une option :</label>
+    <select id="optionsSelect" name="options" onchange="toggleFields()">
+      <option value="">--Sélectionner--</option>
+      <option value="station">Proximité des stations</option>
+      <option value="school">Proximité des écoles</option>
+    </select>
+    <!-- Button to trigger the search -->
+
+    <!-- Fields for station proximity -->
+    <div id="stationFields" class="hidden">
+      <label for="radiusSlider">
+        Station proximity: <span id="radiusValue"></span> m
+      </label>
+      <input
+        type="range"
+        id="radiusSlider"
+        class="radiusSlider"
+        name="station"
+        min="0"
+        max="6"
+        value="1"
+        step="1"
+      />
+    </div>
+
+    <!-- Fields for school proximity -->
+    <div id="schoolFields" class="hidden">
+      <label for="radiusSlider2">
+        School proximity: <span id="radiusValue2"></span> m
+      </label>
+      <input
+        type="range"
+        id="radiusSlider2"
+        name="school"
+        class="radiusSlider"
+        min="0"
+        max="6"
+        value="1"
+        step="1"
+      />
+    </div>
+    <div class="flex-auto flex justify-center">
+      <button id="searchButton2" class="hidden" type="submit">Search</button>
+    </div>
+  </form>
+</div>

@@ -1,27 +1,37 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
 h1 {
   color: red;
   font-size: 50px;
 }
 
 #map {
-  height: 500px;
+  height: 300px;
 }
 
 /* Main container flex layout */
 #app {
+  margin: 10px;
+  padding: 10px;
   display: flex;
-  height: 100vh;
+  height: 100%;
 }
 
 /* Left side map */
 #map {
-  flex: 7;
+  flex: 3;
   height: 100%;
 }
 
 /* Right side content */
 #rightContent {
-  flex: 3;
+  flex: 1;
   padding: 20px;
   overflow-y: auto;
 }
@@ -44,7 +54,6 @@ h1 {
   border: 1px solid #ddd;
   max-height: 150px;
   overflow-y: auto;
-  position: absolute;
   z-index: 999;
   background: white;
   width: calc(100% - 2px);
@@ -55,4 +64,12 @@ h1 {
 }
 .autocomplete-item:hover {
   background-color: #f0f0f0;
+}
+
+.hidden {
+  display: none;
+}
+
+#optionsContainer {
+    margin-bottom: 10px;
 }

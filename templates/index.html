@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-{% load tailwind_tags %} 
-{% load static %} 
+{% load tailwind_tags %} {% load static %}
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+
     <!-- Link to custom stylesheet -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-    
+
     <!-- Link to Leaflet CSS -->
     <link
       rel="stylesheet"
@@ -16,80 +15,24 @@
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
       crossorigin=""
     />
-    
-    <title>Map Index</title>
+
+    <title>index</title>
     {% tailwind_css %}
-</head>
+  </head>
 
-<body>
-    <div id="app">
-        <!-- Main container for the map and controls -->
-        <div id="map"></div>
+  <body>
+    <header class="bg-gray-100 p-5 rounded-lg shadow-lg">
+      <h1 class="text-5xl font-extrabold text-center text-purple-700">
+          Bienvenue sur Mon Site Web
+      </h1>
+    </header>
+    <section id="app" class="m-11 p-11">
+      {% include 'main.html' %}
+      {% include 'rightBar.html' %}
+      {% include 'var.html' %}
+    </section>
 
-        <div id="rightContent">
-            <form method="POST" action="{% url 'map_view' %}">
-                {% csrf_token %}
-                
-                <!-- Search bar for city, place, or shop -->
-                <input
-                    type="text"
-                    name="city"
-                    id="searchBox"
-                    value="{{display_name}}"
-                    placeholder="Search for a city, place, or shop"
-                />
-                
-                <!-- Button to trigger the search -->
-                <button id="searchButton" type="submit">Search</button>
-                <div id="autocompleteContainer" class="autocomplete-list"></div>
-
-                <!-- Slider for station proximity -->
-                <label for="radiusSlider">
-                    Station proximity: <span id="radiusValue"></span> m
-                </label>
-                <input
-                    type="range"
-                    id="radiusSlider"
-                    class="radiusSlider"
-                    name="station"
-                    min="0"
-                    max="6"
-                    value="1"
-                    step="1"
-                />
-
-                <!-- Slider for school proximity -->
-                <label for="radiusSlider2">
-                    School proximity: <span id="radiusValue2"></span> m
-                </label>
-                <input
-                    type="range"
-                    id="radiusSlider2"
-                    name="school"
-                    class="radiusSlider"
-                    min="0"
-                    max="6"
-                    value="1"
-                    step="1"
-                />
-            </form>
-        </div>
-    </div>
-
-    <!-- Add Leaflet JavaScript -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    
-    <!-- Initialize variables with server-provided data -->
-    <script>
-      var latitude = {{ latitude }};
-      var longitude = {{ longitude }};
-      var display_name = "{{ display_name }}";
-      var zones = {{ zones|safe }};
-      var r1 = {{ r1 }};
-      var r2 = {{ r2 }};
-    </script>
-    
     <!-- Link to custom JavaScript file -->
     <script src="{% static 'js/script.js' %}"></script>
-</body>
+  </body>
 </html>
