@@ -704,14 +704,16 @@ def recherche_globale(lon, lat, distance_sncf=0, distance_metro=0, distance_ecol
 
             if test == 1:
                 if polyville.contains(Point1):  # Si Polyville contient totalement Point1
-                    liste_finale.append( [ prix_couleur(prix[j]), liste_coord_sortie[i] ] )
+                    liste_finale.append( [ prix_couleur(prix[j]), liste_coord_sortie[i], prix[j] ] )
                     test = 0
                 elif polyville.contains(Point2):  # Si Polyville contient totalement Point2
-                    liste_finale.append( [ prix_couleur(prix[j]), liste_coord_sortie[i] ] )
+                    liste_finale.append( [ prix_couleur(prix[j]), liste_coord_sortie[i], prix[j] ] )
                     test = 0
                 elif polyville.contains(Point3):  # Si Polyville contient totalement Point3
-                    liste_finale.append( [ prix_couleur(prix[j]), liste_coord_sortie[i] ] )
+                    liste_finale.append( [ prix_couleur(prix[j]), liste_coord_sortie[i], prix[j] ] )
                     test = 0
+    for i in range(len(liste_finale)):
+        liste_finale[i][1] = [[point[1], point[0]] for point in liste_finale[i][1]]
 
     return liste_finale # Renvoie la liste voulue
 

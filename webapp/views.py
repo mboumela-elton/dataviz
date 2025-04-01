@@ -2,13 +2,15 @@ from django.shortcuts import render
 from .utils import search_location, find_nearby_schools_and_stations
 from .zones import recherche_globale
 radius_options = [100, 250, 500, 750, 1000, 1500, 3000]
+radius_school = 0
 
+radius_station = 0
 def map_view(request):
     context = {
         # 'latitude': 48.8566,
         # 'longitude': 2.3522,
-        'latitude' : 49.0365,
-        'longitude' : 2.0603,
+        'latitude' : 49.012672423885874,  
+        'longitude' : 2.083980464758118,
         # 'display_name': 'Paris',
         'display_name': 'Cergy',
         'zones': [],
@@ -34,8 +36,9 @@ def map_view(request):
             max_radius = max(radius_school, radius_station)
             city_name = city.split(',', 1)[0]
             # nearby_zones = find_nearby_schools_and_stations(city_name, max_radius, radius_school, radius_station)
-            nearby_zones = recherche_globale(lon=location_data['longitude'], lat=location_data['latitude'] , distance_sncf=radius_station , distance_ecole=radius_school )
-            context['zones'] = nearby_zones
+            nearby_zones = recherche_globale(lon=float(location_data['longitude']), lat=float(location_data['latitude']) , distance_metro=radius_station , distance_universite=radius_school )
+            context['zones'] = nearby_zones 
+            print(nearby_zones)
             # context['r1'] = radius_school * 1000
             # context['r1'] = radius_station * 1000
 

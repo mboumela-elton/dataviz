@@ -49,15 +49,16 @@ function toggleFields() {
   }
 }
 
-function afficher_zone_clé(polygon) {
+function afficher_zone_clé(zones_cles) {
   // Boucle pour créer et ajouter chaque polygone à la carte
   zones_cles.forEach(function (polygon) {
+    console.log(polygon)
     var poly = L.polygon(polygon[1], { color: polygon[0] }).addTo(map);
     // poly.bindPopup("Prix moyen : " + polygon["Prix_moyen"] + " €");
   });
 
   // Ajuster la vue de la carte pour inclure tous les polygones
-  var bounds = L.latLngBounds(zones_cles.map((p) => p["Coordonnées"]).flat());
+  var bounds = L.latLngBounds(zones_cles.map((p) => p[1]).flat());
   map.fitBounds(bounds);
 }
 
@@ -150,8 +151,12 @@ L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
 }).addTo(map);
 
 // Draw zones if any exist
-if (zones.length > 0) {
-  drawZones(zones);
+// if (zones.length > 0) {
+//   drawZones(zones);
+// }
+
+if(zones.length > 0) {
+  afficher_zone_clé(zones)
 }
 
 // Add a marker for the location
