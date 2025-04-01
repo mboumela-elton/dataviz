@@ -14,11 +14,11 @@
     <div id="autocompleteContainer" class="autocomplete-list"></div>
 
     <!-- Options container -->
-    <label for="optionsSelect">Choisissez une option :</label>
+    <label for="optionsSelect">Choose your option :</label>
     <select id="optionsSelect" name="options" onchange="toggleFields()">
-      <option value="">--Sélectionner--</option>
-      <option value="station">Proximité des stations</option>
-      <option value="school">Proximité des écoles</option>
+      <option value="">----Select----</option>
+      <option value="station">Station proximity</option>
+      <option value="school">University proximity</option>
     </select>
     <!-- Button to trigger the search -->
 
@@ -42,7 +42,7 @@
     <!-- Fields for school proximity -->
     <div id="schoolFields" class="hidden">
       <label for="radiusSlider2">
-        School proximity: <span id="radiusValue2"></span> m
+        University proximity: <span id="radiusValue2"></span> m
       </label>
       <input
         type="range"
@@ -60,4 +60,5 @@
       <button id="searchButton2" class="hidden" type="submit">Search</button>
     </div>
   </form>
+
 </div>

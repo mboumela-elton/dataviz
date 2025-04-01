@@ -54,7 +54,7 @@ function afficher_zone_clé(zones_cles) {
   zones_cles.forEach(function (polygon) {
     console.log(polygon)
     var poly = L.polygon(polygon[1], { color: polygon[0] }).addTo(map);
-    // poly.bindPopup("Prix moyen : " + polygon["Prix_moyen"] + " €");
+    poly.bindPopup("Prix moyen : " + polygon[2] + " €");
   });
 
   // Ajuster la vue de la carte pour inclure tous les polygones

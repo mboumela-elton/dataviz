@@ -539,23 +539,23 @@ def recherche_prix(liste_code):
     return liste_prix
 
 def prix_couleur(prix):
-    """Renvoie la couleure associé au prix"""
+    """Renvoie la couleur associée au prix au format hexadécimal compatible Leaflet"""
     if prix <= 1000:
-        return "0x030565"
-    elif prix > 1000 and prix <= 1250:
-        return "0x1135F8"
-    elif prix > 1250 and prix <= 1600:
-        return "0x12C8EF"
-    elif prix > 1600 and prix <= 2500:
-        return "0x22C219"
-    elif prix > 2500 and prix <= 4000:
-        return "0xE0D618"
-    elif prix > 4000 and prix <= 6500:
-        return "0xF55906"
-    elif prix > 6500 and prix <= 10000:
-        return "0xA90101"
-    elif prix > 10000:
-        return "0x4E0000"
+        return "#030565"
+    elif prix <= 1250:
+        return "#1135F8"
+    elif prix <= 1600:
+        return "#12C8EF"
+    elif prix <= 2500:
+        return "#22C219"
+    elif prix <= 4000:
+        return "#E0D618"
+    elif prix <= 6500:
+        return "#F55906"
+    elif prix <= 10000:
+        return "#A90101"
+    else:  # prix > 10000
+        return "#4E0000"
 
 # RECHERCHE FINALE
 
