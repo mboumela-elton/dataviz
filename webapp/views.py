@@ -1,24 +1,51 @@
-from django.http import HttpResponse
-from .forms import UserInfoForm
 from django.shortcuts import render
+from .utils import search_location, find_nearby_schools_and_stations
+from .zones import recherche_globale
+radius_options = [100, 250, 500, 750, 1000, 1500, 3000]
+radius_school = 0
 
+<<<<<<< HEAD
 # Create your views here.
 def index(request, *args, **kwargs):
     hello = 'Bonjour les amis'
+=======
+radius_station = 0
+def map_view(request):
+>>>>>>> elton
     context = {
-        'hello': hello,
+        # 'latitude': 48.8566,
+        # 'longitude': 2.3522,
+        'latitude' : 49.012672423885874,  
+        'longitude' : 2.083980464758118,
+        # 'display_name': 'Paris',
+        'display_name': 'Cergy',
+        'zones': [],
+        'message': '',
+        'r1': 0,
+        'r2': 0,
     }
-    return render(request, 'index.html', context)
-
-def user_info_view(request):
-    if request.method == 'POST':
-        form = UserInfoForm(request.POST)
-        if form.is_valid():
-            # Afficher les données dans la console
-            print("Nom :", form.cleaned_data['name'])
-            print("Adresse :", form.cleaned_data['address'])
-            # Vous pouvez aussi rediriger ou afficher un message ici
-    else:
-        form = UserInfoForm()
     
-    return render(request, 'user_info.html', {'form': form})
+    if request.method == 'POST':
+        city = request.POST.get('city')
+        location_data = search_location(city) 
+        
+        if location_data and 'latitude' in location_data and 'longitude' in location_data:
+            context['latitude'] = location_data['latitude']
+            context['longitude'] = location_data['longitude']
+            context['display_name'] = location_data.get('display_name', city)
+        else:
+            context['message'] = 'Location not found.'
+
+        if request.POST.get('school') and request.POST.get('station'):
+            radius_school = radius_options[int(request.POST.get('school'))]
+            radius_station = radius_options[int(request.POST.get('station'))]
+            max_radius = max(radius_school, radius_station)
+            city_name = city.split(',', 1)[0]
+            # nearby_zones = find_nearby_schools_and_stations(city_name, max_radius, radius_school, radius_station)
+            nearby_zones = recherche_globale(lon=float(location_data['longitude']), lat=float(location_data['latitude']) , distance_metro=radius_station , distance_universite=radius_school )
+            context['zones'] = nearby_zones 
+            print(nearby_zones)
+            # context['r1'] = radius_school * 1000
+            # context['r1'] = radius_station * 1000
+
+    return render(request, 'index.html', context)

@@ -1,0 +1,40 @@
+<script>
+    var latitude = {{ latitude }};
+    var longitude = {{ longitude }};
+    var display_name = "{{ display_name }}";
+    var zones = {{ zones|safe }};
+    var r1 = {{ r1 }};
+    var r2 = {{ r2 }};
+    var zones_cles = 
+    [
+      {
+          "Coordonnées": [
+              [49.0465, 2.1895],  // Pontoise
+              [49.0465, 2.200],
+              [49.0370, 2.1900],
+              [49.0380, 2.295],
+              [49.0360, 2.1890]
+          ],
+          "Prix_moyen": "2500"
+      },
+      {
+          "Coordonnées": [
+              [49.0547, 2.1853],  // Cesson
+              [49.0547, 2.1860],
+              [49.0552, 2.1860],
+              [49.0552, 2.1853]
+          ],
+          "Prix_moyen": "2300"
+      },
+      {
+          "Coordonnées": [
+              [49.1000, 2.2400],  // Saint-Ouen-l'Aumône
+              [49.1000, 2.2405],
+              [49.1005, 2.2405],
+              [49.1005, 2.2400]
+          ],
+          "Prix_moyen": "2700"
+      }
+    ];
+</script>
+  
