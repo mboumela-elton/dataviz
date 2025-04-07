@@ -1,0 +1,77 @@
+h1 {
+  color: red;
+  font-size: 50px;
+}
+
+#map {
+  height: 500px;
+}
+
+/* Main container flex layout */
+#app {
+  display: flex;
+  height: 100vh;
+}
+
+/* Left side map */
+#map {
+  flex: 7;
+  height: 100%;
+}
+
+/* Right side content */
+#rightContent {
+  flex: 3;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* Style for the search bar */
+#searchBox {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+#radiusSlider {
+  width: 100%;
+}
+
+#controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+/* Style for the icons */
+#controls img {
+  width: 50px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+/* Ensure the icons are displayed in a horizontal bar */
+.communication-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #8B4513; /* Couleur terre */
+  padding: 10px;
+}
+
+#criteriaInput {
+  width: 200px;
+  padding: 10px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+#saveCriteriaBtn {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}

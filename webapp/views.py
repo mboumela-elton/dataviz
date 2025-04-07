@@ -1,13 +1,24 @@
 from django.shortcuts import render
 from .utils import search_location, find_nearby_schools_and_stations
+from .zones import recherche_globale
+radius_options = [100, 250, 500, 750, 1000, 1500, 3000]
+radius_school = 0
 
-radius_options = [0.1, 0.25, 0.5, 0.75, 1, 1.5, 3]
-
+<<<<<<< HEAD
+# Create your views here.
+def index(request, *args, **kwargs):
+    hello = 'Bonjour les amis'
+=======
+radius_station = 0
 def map_view(request):
+>>>>>>> elton
     context = {
-        'latitude': 48.8566,
-        'longitude': 2.3522,
-        'display_name': 'Paris',
+        # 'latitude': 48.8566,
+        # 'longitude': 2.3522,
+        'latitude' : 49.012672423885874,  
+        'longitude' : 2.083980464758118,
+        # 'display_name': 'Paris',
+        'display_name': 'Cergy',
         'zones': [],
         'message': '',
         'r1': 0,
@@ -30,9 +41,11 @@ def map_view(request):
             radius_station = radius_options[int(request.POST.get('station'))]
             max_radius = max(radius_school, radius_station)
             city_name = city.split(',', 1)[0]
-            nearby_zones = find_nearby_schools_and_stations(city_name, max_radius, radius_school, radius_station)
-            context['zones'] = nearby_zones
-            context['r1'] = radius_school * 1000
-            context['r1'] = radius_station * 1000
+            # nearby_zones = find_nearby_schools_and_stations(city_name, max_radius, radius_school, radius_station)
+            nearby_zones = recherche_globale(lon=float(location_data['longitude']), lat=float(location_data['latitude']) , distance_metro=radius_station , distance_universite=radius_school )
+            context['zones'] = nearby_zones 
+            print(nearby_zones)
+            # context['r1'] = radius_school * 1000
+            # context['r1'] = radius_station * 1000
 
     return render(request, 'index.html', context)
